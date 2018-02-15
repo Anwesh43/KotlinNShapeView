@@ -68,4 +68,32 @@ class NShapedView(ctx:Context):View(ctx) {
             }
         }
     }
+    data class NShape(var x:Float, var y:Float, var size:Float) {
+        val state = State()
+        fun draw(canvas:Canvas, paint:Paint) {
+            val deg = 30f
+            canvas.save()
+            canvas.translate(x,y)
+            for(i in 0..1) {
+                canvas.save()
+                canvas.translate(((size / 2) * Math.sin(deg * Math.PI / 180).toFloat()) * state.scales[1] * (i*2-1), 0f)
+                val y_gap = (size / 2) * Math.cos(deg * Math.PI / 180).toFloat()*state.scales[0]
+                canvas.drawLine(0f,-y_gap,0f,-y_gap,paint)
+                val updated_y_gap = y_gap * state.scales[2]
+                canvas.save()
+                canvas.translate(0f, updated_y_gap*(i*2-1))
+                canvas.rotate(deg * -1 * state.scales[2])
+                canvas.drawLine(0f, 0f, 0f, updated_y_gap * state.scales[1], paint)
+                canvas.restore()
+                canvas.restore()
+            }
+            canvas.restore()
+        }
+        fun update(stopcb: (Float) -> Unit) {
+            state.update(stopcb)
+        }
+        fun startUpdating(startcb : () -> Unit) {
+            state.startUpdating(startcb)
+        }
+    }
 }
