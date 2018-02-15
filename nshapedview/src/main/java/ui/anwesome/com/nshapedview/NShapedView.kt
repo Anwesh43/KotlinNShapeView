@@ -102,7 +102,10 @@ class NShapedView(ctx:Context):View(ctx) {
             if(time == 0) {
                 val w = canvas.width.toFloat()
                 val h = canvas.height.toFloat()
-                nShape = NShape(w/2, h/2, Math.min(w,h)/3)
+                nShape = NShape(w/2, h/2, 2*Math.min(w,h)/3)
+                paint.strokeWidth = Math.min(w,h)/45
+                paint.strokeCap = Paint.Cap.ROUND
+                paint.color = Color.parseColor("#673AB7")
             }
             canvas.drawColor(Color.parseColor("#212121"))
             nShape?.draw(canvas, paint)
