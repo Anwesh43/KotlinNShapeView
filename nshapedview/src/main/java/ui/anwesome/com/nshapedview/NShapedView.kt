@@ -78,12 +78,12 @@ class NShapedView(ctx:Context):View(ctx) {
                 canvas.save()
                 canvas.translate(((size / 2) * Math.sin(deg * Math.PI / 180).toFloat()) * state.scales[1] * (i*2-1), 0f)
                 val y_gap = (size / 2) * Math.cos(deg * Math.PI / 180).toFloat()*state.scales[0]
-                canvas.drawLine(0f,-y_gap,0f,-y_gap,paint)
-                val updated_y_gap = y_gap * state.scales[2]
+                canvas.drawLine(0f,-y_gap,0f,y_gap,paint)
+                val updated_y_gap = (size/2) * state.scales[0]
                 canvas.save()
-                canvas.translate(0f, updated_y_gap*(i*2-1))
+                canvas.translate(0f, y_gap*(i*2-1))
                 canvas.rotate(deg * -1 * state.scales[2])
-                canvas.drawLine(0f, 0f, 0f, updated_y_gap * state.scales[1], paint)
+                canvas.drawLine(0f, 0f, 0f, updated_y_gap * state.scales[1]*(1-2*i), paint)
                 canvas.restore()
                 canvas.restore()
             }
