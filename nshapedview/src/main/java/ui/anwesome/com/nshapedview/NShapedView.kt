@@ -3,6 +3,7 @@ package ui.anwesome.com.nshapedview
 /**
  * Created by anweshmishra on 15/02/18.
  */
+import android.app.Activity
 import android.view.*
 import android.content.*
 import android.graphics.*
@@ -120,6 +121,13 @@ class NShapedView(ctx:Context):View(ctx) {
             nShape?.startUpdating {
                 animator.start()
             }
+        }
+    }
+    companion object {
+        fun create(activity: Activity):NShapedView {
+            val view = NShapedView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
